@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-module load python
-
-
 # from theh stack overflow to parse yaml
 function parse_yaml {
    local prefix=$2
@@ -26,18 +23,26 @@ ilamb_venv_yml=ilamb-venv.yml
 
 case $HOST in
 titan*)
-   usepyenv=True
+   useconda=True
+   module load python_anaconda/4.2.0
+   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    ;;
 rhea*)
-   usepyenv=True
+   useconda=True
+   module load python_anaconda/4.2.0
+   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    ;;
 cori*)
    useconda=True
+   module load python/2.7-anaconda-4.4
   #ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
    ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
    ;;
 edison*)
    useconda=True
+   module load python/2.7-anaconda-4.4
+  #ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
+   ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
    ;;
 *)
    usepyenv=True
@@ -50,7 +55,6 @@ esac
 
 if [ -d ${ilamb_venv_dir} ]; then
    echo "Instaling ILAMB venv into the directory: ${ilamb_venv_dir}"
-
 else
    echo "Make the ILAMB venv directory in: ${ilamb_venv_dir}"
    mkdir -p ${ilamb_venv_dir}
@@ -59,25 +63,15 @@ fi
 
 if [ -f ${ilamb_venv_yml} ]; then
    eval $(parse_yaml ${ilamb_venv_yml} "CONF_")   
-
-   echo $CONF_name
-
 else
-
    echo "Please provide the env file"
    exit -1
 fi
 
 
-
-
-exit 0
 if [ x$useconda = 'xTrue' ]; then
-   echo 'xxx'
-
    export CONDA_ENVS_PATH=${ilamb_venv_dir}
    conda env create -f ilamb-venv.yml
-
 
    mkdir -p ${ilamb_venv_dir}/${CONF_name}/etc/conda/activate.d
    mkdir -p ${ilamb_venv_dir}/${CONF_name}/etc/conda/deactivate.d
@@ -88,9 +82,6 @@ if [ x$useconda = 'xTrue' ]; then
 
    echo "export ILAMB_VENV_DIR=${ilamb_venv_dir}" >> ${ilamb_venv_dir}/$CONF_name/etc/conda/activate.d/env_var.sh
    echo "unset ILAMB_VENV_DIR" >> ${ilamb_venv_dir}/$CONF_name/etc/conda/deactivate.d/env_var.sh
-
-
-
 else
    pip install virtualenv --user
    $PYTHONUSERBASE/bin/virtualenv $ilamb_venv_dir/ilamb-venv-py27
