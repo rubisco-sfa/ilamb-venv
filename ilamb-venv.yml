@@ -1,0 +1,16 @@
+name: ilamb-venv-py27
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=2.7
+  - numpy
+  - scipy
+  - sympy
+  - matplotlib
+  - basemap
+  - netcdf4
+  - mpi4py
+  - cfunits
+
