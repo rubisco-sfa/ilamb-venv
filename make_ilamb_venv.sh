@@ -24,12 +24,12 @@ ilamb_venv_yml=ilamb-venv.yml
 case $HOST in
 titan*)
    useconda=True
-   module load python_anaconda/4.2.0
+   module load python_anaconda/2.7.14-anaconda2-5.1.0
    ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    ;;
 rhea*)
    useconda=True
-   module load python_anaconda/4.2.0
+   module load python_anaconda/2.7.14-anaconda2-5.1.0
    ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    ;;
 cori*)
@@ -49,7 +49,6 @@ edison*)
    echo "Please set up ilamb_venv_dir and ilamb_venv_yml first"
    ;;
 esac
-
 
 
 
