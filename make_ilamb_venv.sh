@@ -21,7 +21,19 @@ function parse_yaml {
 
 ilamb_venv_yml=ilamb-venv.yml
 
-case $HOST in
+if [ $HOSTNAME ]; then
+   host=$HOSTNAME
+fi
+
+if [ $HOST ]; then
+   host=$HOST
+fi
+
+
+echo $host
+
+
+case $host in
 titan*)
    useconda=True
    module load python_anaconda/2.7.14-anaconda2-5.1.0
@@ -43,6 +55,11 @@ edison*)
    module load python/2.7-anaconda-4.4
   #ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
    ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
+   ;;
+or-condo*)
+   useconda=True
+   module load anaconda2/4.4.0
+   ilamb_venv_dir=/lustre/or-hydra/cades-ccsi/e4x/ilamb_venv/
    ;;
 *)
    usepyenv=True
@@ -70,6 +87,7 @@ fi
 
 if [ x$useconda = 'xTrue' ]; then
    export CONDA_ENVS_PATH=${ilamb_venv_dir}
+   export CONDA_PKGS_DIRS=${ilamb_venv_dir}/.pkgs
    conda env create -f ilamb-venv.yml
 
    mkdir -p ${ilamb_venv_dir}/${CONF_name}/etc/conda/activate.d
