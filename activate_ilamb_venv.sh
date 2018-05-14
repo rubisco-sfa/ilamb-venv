@@ -18,12 +18,12 @@ echo $host
 
 case $host in
 titan*)
-   usepyenv=True
+   useconda=True
    module load python_anaconda/2.7.14-anaconda2-5.1.0
    bashrcfn=.bashrc
    ;;
 rhea*)
-   usepyenv=True
+   useconda=True
    module load python_anaconda/2.7.14-anaconda2-5.1.0
    bashrcfn=.bashrc
    ;;
