@@ -20,11 +20,13 @@ case $host in
 titan*)
    useconda=True
    module load python_anaconda/2.7.14-anaconda2-5.1.0
+   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    bashrcfn=.bashrc
    ;;
 rhea*)
    useconda=True
-   module load python_anaconda/2.7.14-anaconda2-5.1.0
+   module load python_anaconda2/5.1.0
+   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    bashrcfn=.bashrc
    ;;
 cori*)
@@ -54,28 +56,26 @@ or-condo*)
 esac
 
 
-condafile=`which conda`
-condapath=`dirname $condafile`
-echo $condafile $condapath
-
-if [ -f $condapath/../etc/profile.d/conda.sh ]; then
-   rlt=$(grep -F 'conda.sh' ${HOME}/${bashrcfn})
-
-   if [ ! -z "$rlt" ]; then
-       echo "find it in $bashrcfn"
-   else
-       echo $rlt
-       echo "Cannot find the conda.sh, add a line into $bashrcfn"
-       echo ". $condapath/../etc/profile.d/conda.sh" >> ${HOME}/${bashrcfn}
-       source ${HOME}/${bashrcfn}
-   fi
-else
-   echo "Cannot find conda.sh, the enviroment may not be activated"
-fi
-
-
-
 if [ x$useconda = 'xTrue' ]; then
+   condafile=`which conda`
+   condapath=`dirname $condafile`
+   echo $condafile $condapath
+   
+   if [ -f $condapath/../etc/profile.d/conda.sh ]; then
+      rlt=$(grep -F 'conda.sh' ${HOME}/${bashrcfn})
+   
+      if [ ! -z "$rlt" ]; then
+          echo "find it in $bashrcfn"
+      else
+          echo $rlt
+          echo "Cannot find the conda.sh, add a line into $bashrcfn"
+          echo ". $condapath/../etc/profile.d/conda.sh" >> ${HOME}/${bashrcfn}
+          source ${HOME}/${bashrcfn}
+      fi
+   else
+      echo "Cannot find conda.sh, the enviroment may not be activated"
+   fi
+
    export CONDA_ENVS_PATH=${ilamb_venv_dir}
    source activate ilamb-venv-py27
 fi
