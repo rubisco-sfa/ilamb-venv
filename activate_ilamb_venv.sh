@@ -20,8 +20,8 @@ cori*)
    useconda=True
    bashrcfn=.bashrc.ext
    module load python/2.7-anaconda-4.4
-  #ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
-   ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
+   ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
+  #ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
    ;;
 edison*)
    useconda=True
@@ -61,9 +61,10 @@ else
 fi
 
 
+
 if [ x$useconda = 'xTrue' ]; then
    export CONDA_ENVS_PATH=${ilamb_venv_dir}
-   conda activate ilamb-venv-py27
+   source activate ilamb-venv-py27
 fi
 
 
