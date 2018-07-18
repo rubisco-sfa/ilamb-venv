@@ -5,12 +5,12 @@ channels:
 
 dependencies:
   - python=2.7
-  - numpy
+  - numpy=1.14.5
   - scipy
   - sympy
   - matplotlib
   - basemap
   - netcdf4
   - mpi4py
-  - cfunits
+  - cf-units
 

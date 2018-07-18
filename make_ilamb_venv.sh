@@ -41,7 +41,7 @@ titan*)
    ;;
 rhea*)
    useconda=True
-   module load python_anaconda/2.7.14-anaconda2-5.1.0
+   module load python_anaconda2/5.1.0
    ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
    ;;
 cori*)
