@@ -32,6 +32,7 @@ fi
 
 echo $host
 
+groups=`groups`
 
 case $host in
 titan*)
@@ -47,14 +48,31 @@ rhea*)
 cori*)
    useconda=True
    module load python/2.7-anaconda-4.4
-  #ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
-   ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
+   case $groups in
+   *acme*)
+      ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv ;;
+   *m2467*)
+      ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv ;;
+   *m1006*)
+      ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv ;;
+   *)
+      echo "your group do not have ilamb venv" ;;
+   esac
    ;;
+
 edison*)
    useconda=True
    module load python/2.7-anaconda-4.4
-  #ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv/
-   ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv/
+   case $groups in
+   *acme*)
+      ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv ;;
+   *m2467*)
+      ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv ;;
+   *m1006*)
+      ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv ;;
+   *)
+      echo "your group do not have ilamb venv";;
+   esac
    ;;
 or-condo*)
    useconda=True
