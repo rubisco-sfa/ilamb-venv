@@ -23,6 +23,12 @@ echo $host
 
 groups=`groups`
 
+if [ -z $1 ]; then
+   group=$groups
+else
+   group=$1
+fi
+
 case $host in
 titan*)
    useconda=True
@@ -41,7 +47,7 @@ cori*)
    bashrcfn=.bashrc.ext
    module load python/2.7-anaconda-4.4
 
-   case $groups in
+   case $group in
    *acme*)
       ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv ;;
    *m2467*)
@@ -57,7 +63,7 @@ edison*)
    bashrcfn=.bashrc.ext
    module load python/2.7-anaconda-4.4
 
-   case $groups in
+   case $group in
    *acme*)
       ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv ;;
    *m2467*)

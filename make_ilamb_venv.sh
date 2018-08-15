@@ -58,6 +58,10 @@ cori*)
    *)
       echo "your group do not have ilamb venv" ;;
    esac
+   fxmpi4py=True
+   conda_mpi4py=${ilamb_venv_dir}/ilamb-venv-py27/lib/python2.7/conda_mpi4py
+   cray1_mpi4py=/global/common/edison/software/python/2.7-anaconda-4.4/lib/python2.7/site-packages/mpi4py-2.0.0-py2.7.egg-info
+   cray2_mpi4py=/global/common/edison/software/python/2.7-anaconda-4.4/lib/python2.7/site-packages/mpi4py
    ;;
 
 edison*)
@@ -73,6 +77,10 @@ edison*)
    *)
       echo "your group do not have ilamb venv";;
    esac
+   fxmpi4py=True
+   conda_mpi4py=${ilamb_venv_dir}/ilamb-venv-py27/lib/python2.7/conda_mpi4py
+   cray1_mpi4py=/global/common/edison/software/python/2.7-anaconda-4.4/lib/python2.7/site-packages/mpi4py-2.0.0-py2.7.egg-info
+   cray2_mpi4py=/global/common/edison/software/python/2.7-anaconda-4.4/lib/python2.7/site-packages/mpi4py
    ;;
 or-condo*)
    useconda=True
@@ -117,6 +125,18 @@ if [ x$useconda = 'xTrue' ]; then
 
    echo "export ILAMB_VENV_DIR=${ilamb_venv_dir}" >> ${ilamb_venv_dir}/$CONF_name/etc/conda/activate.d/env_var.sh
    echo "unset ILAMB_VENV_DIR" >> ${ilamb_venv_dir}/$CONF_name/etc/conda/deactivate.d/env_var.sh
+
+   # fix mpi4py error
+   if [ x$fxmpi4py = 'xTrue' ]; then
+      mkdir -p ${conda_mpi4py}
+      /bin/mv ${ilamb_venv_dir}/ilamb-venv-py27/lib/python2.7/site-packages/mpi4py-* ${conda_mpi4py}
+      /bin/mv ${ilamb_venv_dir}/ilamb-venv-py27/lib/python2.7/site-packages/mpi4py   ${conda_mpi4py}
+      ln -sf ${cray1_mpi4py} ${ilamb_venv_dir}/ilamb-venv-py27/lib/python2.7/site-packages/
+      ln -sf ${cray2_mpi4py} ${ilamb_venv_dir}/ilamb-venv-py27/lib/python2.7/site-packages/
+      cp -f ilamb-run-ser-sample ${ilamb_venv_dir}/ilamb-venv-py27/bin
+   fi
+
+   # install ilamb
 else
    pip install virtualenv --user
    $PYTHONUSERBASE/bin/virtualenv $ilamb_venv_dir/ilamb-venv-py27

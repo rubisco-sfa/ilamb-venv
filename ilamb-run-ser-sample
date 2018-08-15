@@ -1,0 +1,6 @@
+#!/project/projectdirs/m2467/prj_minxu/ilamb-venv/ilamb-venv-py27/bin/python
+# EASY-INSTALL-SCRIPT: 'ILAMB==2.2','ilamb-run'
+__requires__ = 'ILAMB==2.2'
+dummy=__import__('pkg_resources')
+dummy.sys.path.insert(0,dummy.os.environ['ILAMB_VENV_DIR']+"/ilamb-venv-py27/lib/python2.7/conda_mpi4py")
+dummy.run_script('ILAMB==2.2', 'ilamb-run')
