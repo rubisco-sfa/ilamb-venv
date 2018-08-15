@@ -4,14 +4,20 @@
 #disable local site lib
 export  PYTHONNOUSERSITE=1
 
-if [ $HOSTNAME ]; then
-   host=$HOSTNAME
-fi
 
 if [ $HOST ]; then
-   host=$HOST
+   host1=$HOST
 fi
 
+if [ $HOSTNAME ]; then
+   host2=$HOSTNAME
+fi
+
+if [ -z "$host2" ]; then
+   host=$host1
+else
+   host=$host2
+fi
 
 echo $host
 
