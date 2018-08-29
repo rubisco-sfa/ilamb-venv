@@ -78,6 +78,8 @@ or-condo*)
    useconda=True
    module load anaconda2/4.4.0
    ilamb_venv_dir=/lustre/or-hydra/cades-ccsi/e4x/ilamb_venv/
+   bashrcfn=.bashrc
+   export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
    ;;
 *)
    usepyenv=True
