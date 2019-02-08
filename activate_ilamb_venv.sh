@@ -5,87 +5,17 @@
 export  PYTHONNOUSERSITE=1
 
 
-if [ $HOST ]; then
-   host1=$HOST
-fi
 
-if [ $HOSTNAME ]; then
-   host2=$HOSTNAME
-fi
+source ilamb-parse.sh
+source ilamb-mach-settings.sh
 
-if [ -z "$host2" ]; then
-   host=$host1
+echo $ilamb_venv_dir
+if [ -f ${ilamb_venv_yml} ]; then
+   eval $(parse_yaml ${ilamb_venv_yml} "CONF_")
 else
-   host=$host2
+   echo "Please provide the env file"
+   exit -1
 fi
-
-echo $host
-
-groups=`groups`
-
-if [ -z $1 ]; then
-   group=$groups
-else
-   group=$1
-fi
-
-case $host in
-titan*)
-   useconda=True
-   module load python_anaconda/2.7.14-anaconda2-5.1.0
-   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
-   bashrcfn=.bashrc
-   ;;
-rhea*)
-   useconda=True
-   module load python_anaconda2/5.1.0
-   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
-   bashrcfn=.bashrc
-   ;;
-cori*)
-   useconda=True
-   bashrcfn=.bashrc.ext
-   module load python/2.7-anaconda-4.4
-
-   case $group in
-   *acme*)
-      ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv ;;
-   *m2467*)
-      ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv ;;
-   *m1006*)
-      ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv ;;
-   *)
-      echo "your group do not have ilamb venv" ;;
-   esac
-   ;;
-edison*)
-   useconda=True
-   bashrcfn=.bashrc.ext
-   module load python/2.7-anaconda-4.4
-
-   case $group in
-   *acme*)
-      ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv ;;
-   *m2467*)
-      ilamb_venv_dir=/global/project/projectdirs/m2467/prj_minxu/ilamb-venv ;;
-   *m1006*)
-      ilamb_venv_dir=/global/project/projectdirs/m1006/minxu/ilamb-venv ;;
-   *)
-      echo "your group do not have ilamb venv" ;;
-   esac
-   ;;
-or-condo*)
-   useconda=True
-   module load anaconda2/4.4.0
-   ilamb_venv_dir=/lustre/or-hydra/cades-ccsi/e4x/ilamb_venv/
-   ;;
-*)
-   usepyenv=True
-   bashrcfn=.bashrc
-   echo "Please set up ilamb_venv_dir and ilamb_venv_yml first"
-   ;;
-esac
-
 
 if [ x$useconda = 'xTrue' ]; then
    condafile=`which conda`
@@ -108,7 +38,7 @@ if [ x$useconda = 'xTrue' ]; then
    fi
 
    export CONDA_ENVS_PATH=${ilamb_venv_dir}
-   source activate ilamb-venv-py27
+   source activate $CONF_name
 fi
 
 echo 'xxxxxxxxxxxxxxxxxxxxx'

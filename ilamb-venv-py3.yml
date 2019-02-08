@@ -1,15 +1,14 @@
-name: ilamb-venv-py27
+name: ilamb-venv-py36
 
 channels:
   - conda-forge
 
 dependencies:
-  - python=2.7
+  - python=3.6
   - numpy=1.14.5
   - scipy
   - sympy
   - matplotlib
   - basemap
   - netcdf4
-  - cfunits=1.5.1
   - cf_units=2.0.1
