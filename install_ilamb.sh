@@ -2,7 +2,8 @@
 
 
 #ilamb_venv_dir=/lustre/or-hydra/cades-ccsi/e4x/ilamb_venv/
-ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv
+#ilamb_venv_dir=/global/project/projectdirs/acme/minxu/ilamb-venv
+ilamb_venv_dir=/lustre/atlas1/cli106/proj-shared/mxu/ilamb_venv/ilamb-venv-py36
 
 umask 022
 
@@ -18,7 +19,7 @@ cd ILAMB-$tag/bin
 rename ilamb ilamb${tag//./} ilamb*
 cd ..
 if [[ $tag == 'v9.9' ]]; then
-   sed -i "s/v2.3/v9.9/g" setup.py
+   sed -i "s/v2.4/v9.9/g" setup.py
    sed -i "s/bin\/ilamb/bin\/ilamb${tag//./}/g" setup.py
 
 else

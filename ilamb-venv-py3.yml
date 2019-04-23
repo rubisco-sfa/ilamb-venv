@@ -12,3 +12,6 @@ dependencies:
   - basemap
   - netcdf4
   - cf_units=2.0.1
+  - request
+  - pip:
+    - mpi4py

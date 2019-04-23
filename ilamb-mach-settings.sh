@@ -11,8 +11,8 @@ titan*)
    ;;
 rhea*)
    useconda=True
-   module load python_anaconda2/5.1.0
-   ilamb_venv_dir=/lustre/atlas1/cli106/world-shared/mxu/ilamb_venv
+   module load python/3.7.0-anaconda3-2018.12
+   ilamb_venv_dir=/lustre/atlas1/cli106/proj-shared/mxu/ilamb_venv
    bashrcfn=.bashrc
    ;;
 cori*)
