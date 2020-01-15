@@ -25,7 +25,7 @@ fi
 if [ x$useconda = 'xTrue' ]; then
    export CONDA_ENVS_PATH=${ilamb_venv_dir}
    export CONDA_PKGS_DIRS=${ilamb_venv_dir}/.pkgs
-   #-conda env create -f $ilamb_venv_yml
+   conda env create -f $ilamb_venv_yml
 
    mkdir -p ${ilamb_venv_dir}/${CONF_name}/etc/conda/activate.d
    mkdir -p ${ilamb_venv_dir}/${CONF_name}/etc/conda/deactivate.d

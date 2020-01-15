@@ -49,7 +49,7 @@ if [ -z $2 ]; then
    pythondir=python2.7
 else
    pythonver=$2
-   pythondir=python3.6
+   pythondir=python3.7
 fi
 
 if [ "$pythonver" == "2" ]; then
